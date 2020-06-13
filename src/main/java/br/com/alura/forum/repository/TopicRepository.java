@@ -1,6 +1,6 @@
 package br.com.alura.forum.repository;
 
-import br.com.alura.forum.dto.output.TopicStatistic;
+import br.com.alura.forum.dto.output.TopicStatisticDto;
 import br.com.alura.forum.model.topic.domain.Topic;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -21,7 +21,7 @@ public interface TopicRepository extends JpaRepository<Topic, Long>, JpaSpecific
             "   join subCategory.category category " +
             "GROUP BY " +
             "   category.id")
-    List<TopicStatistic> findCountTopicsGroupByCategory();
+    List<TopicStatisticDto> findCountTopicsGroupByCategory();
 
     @Query("SELECT " +
             "   new br.com.alura.forum.dto.output.TopicStatistic(category.id, category.name, COUNT(t.id)) " +
@@ -34,7 +34,7 @@ public interface TopicRepository extends JpaRepository<Topic, Long>, JpaSpecific
             "   t.status = br.com.alura.forum.model.topic.domain.TopicStatus.NOT_ANSWERED " +
             "GROUP BY " +
             "   category.id")
-    List<TopicStatistic> findCountTopicsNotAnsweredGroupByCategory();
+    List<TopicStatisticDto> findCountTopicsNotAnsweredGroupByCategory();
 
     @Query("SELECT " +
             "   new br.com.alura.forum.dto.output.TopicStatistic(category.id, category.name, COUNT(t.id)) " +
@@ -47,6 +47,6 @@ public interface TopicRepository extends JpaRepository<Topic, Long>, JpaSpecific
             "   t.creationInstant >= :instant " +
             "GROUP BY " +
             "   category.id")
-    List<TopicStatistic> findCountTopicsFromInstantGroupByCategory(@Param("instant") Instant instant);
+    List<TopicStatisticDto> findCountTopicsFromInstantGroupByCategory(@Param("instant") Instant instant);
 
 }

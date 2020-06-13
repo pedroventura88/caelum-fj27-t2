@@ -20,11 +20,11 @@ public class DashboardDto {
         return new DashboardDto(category.getName(), category.getSubcategoryNames(), allTopics, lastWeekTopics, unansweredTopics);
     }
 
-    public static Long getStatisticByCategory(List<TopicStatistic> countTopicsByCategory, Category category) {
+    public static Long getStatisticByCategory(List<TopicStatisticDto> countTopicsByCategory, Category category) {
         return countTopicsByCategory
                 .stream()
                 .filter(topicStatistic -> topicStatistic.getId().equals(category.getId()))
-                .map(TopicStatistic::getQuantidade)
+                .map(TopicStatisticDto::getQuantidade)
                 .findAny()
                 .orElse(0L);
     }

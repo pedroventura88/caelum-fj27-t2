@@ -1,7 +1,7 @@
 package br.com.alura.forum.service;
 
 import br.com.alura.forum.dto.output.DashboardDto;
-import br.com.alura.forum.dto.output.TopicStatistic;
+import br.com.alura.forum.dto.output.TopicStatisticDto;
 import br.com.alura.forum.model.Category;
 import br.com.alura.forum.repository.CategoryRepository;
 import br.com.alura.forum.repository.TopicRepository;
@@ -27,12 +27,12 @@ public class DashboardService {
 
         List<Category> categories = categoryRepository.findByCategoryIsNull();
 
-        List<TopicStatistic> countTopicsByCategory = topicRepository.findCountTopicsGroupByCategory();
+        List<TopicStatisticDto> countTopicsByCategory = topicRepository.findCountTopicsGroupByCategory();
 
-        List<TopicStatistic> countTopicsFromLastWeekByCategory =
+        List<TopicStatisticDto> countTopicsFromLastWeekByCategory =
                 topicRepository.findCountTopicsFromInstantGroupByCategory(Instant.now().minus(Duration.ofDays(7)));
 
-        List<TopicStatistic> countTopicsNotAnsweredByCategory =
+        List<TopicStatisticDto> countTopicsNotAnsweredByCategory =
                 topicRepository.findCountTopicsNotAnsweredGroupByCategory();
 
         categories.forEach(category -> {
