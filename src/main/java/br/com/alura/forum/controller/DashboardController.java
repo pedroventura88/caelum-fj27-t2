@@ -15,7 +15,7 @@ public class DashboardController {
 
     private DashboardService dashboardService;
 
-    @GetMapping(value="/api/topics/dashboard")
+    @GetMapping(value="/api/dashboard")
     public List<DashboardDto> getDashboard() {
         return dashboardService.getDashboardStatistics();
     }
