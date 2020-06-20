@@ -13,7 +13,7 @@ import java.util.List;
 public interface TopicRepository extends JpaRepository<Topic, Long>, JpaSpecificationExecutor<Topic> {
 
     @Query("SELECT " +
-            "   new br.com.alura.forum.dto.output.TopicStatistic(category.id, category.name, COUNT(t.id)) " +
+            "   new br.com.alura.forum.dto.output.TopicStatisticDto(category.id, category.name, COUNT(t.id)) " +
             "FROM " +
             "   Topic t " +
             "   join t.course c " +
@@ -24,7 +24,7 @@ public interface TopicRepository extends JpaRepository<Topic, Long>, JpaSpecific
     List<TopicStatisticDto> findCountTopicsGroupByCategory();
 
     @Query("SELECT " +
-            "   new br.com.alura.forum.dto.output.TopicStatistic(category.id, category.name, COUNT(t.id)) " +
+            "   new br.com.alura.forum.dto.output.TopicStatisticDto(category.id, category.name, COUNT(t.id)) " +
             "FROM " +
             "   Topic t " +
             "   join t.course c " +
@@ -37,7 +37,7 @@ public interface TopicRepository extends JpaRepository<Topic, Long>, JpaSpecific
     List<TopicStatisticDto> findCountTopicsNotAnsweredGroupByCategory();
 
     @Query("SELECT " +
-            "   new br.com.alura.forum.dto.output.TopicStatistic(category.id, category.name, COUNT(t.id)) " +
+            "   new br.com.alura.forum.dto.output.TopicStatisticDto(category.id, category.name, COUNT(t.id)) " +
             "FROM " +
             "   Topic t " +
             "   join t.course c " +
