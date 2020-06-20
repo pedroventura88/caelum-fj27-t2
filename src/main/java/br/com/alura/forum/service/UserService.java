@@ -19,4 +19,8 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("O usuário não foi encontrado"));
     }
 
+    public UserDetails loadUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(NullPointerException::new);
+    }
 }
