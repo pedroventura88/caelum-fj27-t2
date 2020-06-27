@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
-public class TopicBriefOutputDto {
+public class TopicOutputDto {
 
     private Integer id;
     private String shortDescription;
@@ -25,7 +25,21 @@ public class TopicBriefOutputDto {
     private boolean solved;
     private TopicStatus topicStatus;
 
-    public TopicBriefOutputDto(Topic topic) {
+    public static TopicOutputDto of(Topic topic) {
+        return new TopicOutputDto(topic);
+    }
+
+    public static List<TopicOutputDto> fromTopics(List<Topic> topics) {
+        return topics.stream()
+                .map(TopicOutputDto::new)
+                .collect(Collectors.toList());
+    }
+
+    public static Page<TopicOutputDto> fromTopics(Page<Topic> topics) {
+        return topics.map(TopicOutputDto::new);
+    }
+
+    private TopicOutputDto(Topic topic) {
         this.id = topic.getId().intValue();
         this.shortDescription = topic.getShortDescription();
         this.secondsSinceLastUpdate = getSecondsSince(topic.getLastUpdate());
@@ -40,16 +54,6 @@ public class TopicBriefOutputDto {
 
     private long getSecondsSince(Instant lastUpdate) {
         return Duration.between(lastUpdate, Instant.now()).get(ChronoUnit.SECONDS);
-    }
-
-    public static List<TopicBriefOutputDto> listFromTopics(List<Topic> topics) {
-        return topics.stream()
-                .map(TopicBriefOutputDto::new)
-                .collect(Collectors.toList());
-    }
-
-    public static Page<TopicBriefOutputDto> listFromTopics(Page<Topic> topics) {
-        return topics.map(TopicBriefOutputDto::new);
     }
 
 }
