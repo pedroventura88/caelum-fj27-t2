@@ -13,6 +13,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.util.List;
+
 import static br.com.alura.forum.dto.output.TopicOutputDto.fromTopics;
 
 @AllArgsConstructor
@@ -34,4 +37,7 @@ public class TopicService {
         return TopicOutputDto.of(topicRepository.save(topic));
     }
 
+    public List<Topic> findUserCreatedTopicsAfterInstant(User loggedUser, Instant oneHourAgo) {
+        return topicRepository.findByOwnerAndCreationInstantAfterOrderByCreationInstantAsc(loggedUser, oneHourAgo);
+    }
 }
