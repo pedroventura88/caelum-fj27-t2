@@ -15,11 +15,15 @@ public class AnswerService {
 
     private AnswerRepository answerRepository;
     private TopicRepository topicRepository;
+    private ForumMailService forumMailService;
 
     public AnswerOutputDto create(AnswerInputDto answerInputDto, Long topicId, User loggedUser) {
         Answer answer = new Answer(answerInputDto.getContent(), topicRepository
                 .findById(topicId)
                 .orElseThrow(NullPointerException::new), loggedUser);
-        return new AnswerOutputDto(answerRepository.save(answer));
+        answer = answerRepository.save(answer);
+        forumMailService.sendNewReplyMail(answer);
+        return new AnswerOutputDto(answer);
     }
+
 }
